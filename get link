@@ -1,0 +1,30 @@
+#-*-coding:utf-8-*-
+import requests
+import re
+import time
+import sys
+#reload(sys)
+lj = input("请输入追书神器要爬取的书籍网址：")
+
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'}
+html = requests.get(lj,headers = headers)
+#print(html.text)
+html.encoding = 'utf-8'
+
+title1 = re.findall('List">(.*?)</ul>',html.text,re.S)
+title2 = re.findall('href="(.*?)</a></li>',str(title1),re.S)
+title3 = re.findall('/(.*?)">',str(title2),re.S)
+for each1 in title3: 
+    #print("each1")
+    title4 = re.findall('.html">(.*?)</a>',str(title1),re.S)
+
+    
+for each2 in title4:
+    #print(each2)
+    print("本章链接：http://www.zhuishushenqi.com/" +    each1
+          +"本章标题：" + each2)
+time.sleep(60)
+
+#fh = open(r"C:\Users\Pandy\AppData\Local\Programs\Python\Python35\myweb\5.html","wb")
+#fh.write(h)
+#fh.close()
