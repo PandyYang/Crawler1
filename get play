@@ -1,0 +1,19 @@
+import requests
+import re
+headers = {'User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'}
+html = requests.get('https://movie.douban.com/subject/25814705/photos?type=S&start=40&sortby=vote&size=a&subtype=a')
+#print(html.text)
+f = open('source.txt','r')
+c1 = html
+html= f.read()
+f.close()
+
+pic_url = re.findall('img src="(.*?)" class="cover" ',html,re.S)[0]
+i = 0
+for each in pic_url:
+    print('now downloading:' + each)
+    pic = requests.get(each)
+    fp = open('pic\\' +str(i)+'.jpg','wb')
+    fp.write(pic.content)
+    fp.close()
+    i += 1
